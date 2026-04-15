@@ -5,12 +5,16 @@ upper = string.ascii_uppercase
 
 
 def shift_letter(letter, shift):
-
+    """
+    Shifts a single letter by the given shift value.
+    Preserves case (uppercase stays uppercase, lowercase stays lowercase).
+    Non-letter characters are returned unchanged.
+    """
     if letter.islower():
 
         index = lower.index(letter)
 
-        return lower[(index + shift) % 26]
+        return lower[(index + shift) % 26] # Shift the letter and wrap around the alphabet if needed
 
 
     if letter.isupper():
@@ -25,6 +29,9 @@ def shift_letter(letter, shift):
 
 
 def encrypt_text(text, shift1, shift2):
+    """
+    Encrypts text using shift1 for even positions and shift2 for odd positions.
+    """
 
     encrypted = ""
 
@@ -41,6 +48,9 @@ def encrypt_text(text, shift1, shift2):
     return encrypted
 
 def decrypt_text(text, shift1, shift2):
+    """
+    Decrypts text by reversing shift1 and shift2.
+    """
     decrypted = ""
 
     for i, letter in enumerate(text):
@@ -57,6 +67,9 @@ def decrypt_text(text, shift1, shift2):
 
 
 def verify_files(file1, file2):
+    """
+    Checks whether the original file and decrypted file match.
+    """
 
     with open(file1, encoding="utf-8") as f1, open(file2, encoding="utf-8") as f2:
 
@@ -64,6 +77,9 @@ def verify_files(file1, file2):
 
 
 def main():
+    """
+    Runs the encryption, decryption, and verification process.
+    """
 
     shift1 = int(input("Enter shift1: "))
     shift2 = int(input("Enter shift2: "))
@@ -93,5 +109,5 @@ def main():
         print("ERROR: Decryption failed")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Run the program only when this file is executed directly
     main()
