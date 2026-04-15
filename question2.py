@@ -7,15 +7,15 @@ def tokenize(expression):
     while i<len(expression):
         char=expression[i]
         
-        if char.isspace(): #if the character is a space, skip it and move to the next character and we need double brackets to add a tuple with type and value
+        if char.isspace():
             i+=1
-        elif char.isdigit():#if the character is a digit, we need to read the entire number (which may consist of multiple digits) and add it as a token
+        elif char.isdigit():
             num=''
             while i<len(expression) and expression[i].isdigit():
                 num+=expression[i]
                 i+=1
-            tokens.append(('NUM', num))#one tuple with type and value
-        elif char in '+-*/': #if the character is an operator, we add it as a token
+            tokens.append(('NUM', num))
+        elif char in '+-*/': 
             tokens.append(('OP', char))
             i+=1
         elif char == '(': #if the character is an opening parenthesis, we add it as a token
@@ -26,7 +26,7 @@ def tokenize(expression):
             i+=1
         else:
             return None
-    tokens.append(('END', '')) #add an end token to signify the end of the expression
+    tokens.append(('END', '')) 
     return tokens
 
 def factor(tokens, i):
@@ -73,14 +73,14 @@ def evaluate(tree):
     OP=tree[0]
     left_tree=tree[1]
     right_tree=tree[2]
-    if OP=='+': #if the operator is '+', we evaluate the left and right subtrees and return their sum
+    if OP=='+':
         return evaluate(left_tree) + evaluate(right_tree)
-    elif OP=='-': #if the operator is '-', we evaluate the left and right subtrees and return their difference
+    elif OP=='-': 
         return evaluate(left_tree) - evaluate(right_tree)
-    elif OP=='*': #if the operator is '*', we evaluate the left and right subtrees and return their product
+    elif OP=='*': 
         return evaluate(left_tree) * evaluate(right_tree)
-    elif OP=='/': #if the operator is '/', we evaluate the left and right subtrees and return their quotient
-        if evaluate(right_tree)==0: #if the right subtree evaluates to zero, we return an error to avoid division by zero
+    elif OP=='/': 
+        if evaluate(right_tree)==0:
             return 'ERROR'
         else:
             return evaluate(left_tree) / evaluate(right_tree)
