@@ -94,8 +94,15 @@ def format_tokens(tokens):
             result+=f'[{token[0]}:{token[1]}] ' #we add the token type and value to the result with a space after
     return result.strip() #we remove any trailing whitespace
 
-
-    
+def format_tree(tree): #this function takes a parse tree and formats it as a string for easier visualization. It uses recursion to traverse the tree and format each node according to its type (number, operator, or negation).
+    if isinstance(tree, str):
+        return tree
+    if tree[0] == 'neg':
+        return f'(neg {format_tree(tree[1])})' #if the node is a negation, we format it as (neg <operand>)
+    op    = tree[0]
+    left  = format_tree(tree[1])
+    right = format_tree(tree[2])
+    return f'({op} {left} {right})'
 
 def evaluate_file(input_path):
     output_path=os.path.join(os.path.dirname(os.path.abspath(input_path)), 'output.txt') #we create the output path by joining the directory of the input file with 'output.txt'
