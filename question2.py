@@ -44,20 +44,20 @@ def factor(tokens, i):
         return 'ERROR', i 
 
 def term(tokens, i):
-    tree, i = factor(tokens, i) #we start by parsing a factor
+    tree, i = factor(tokens, i) 
     while tokens[i][0]=='OP' and tokens[i][1] in '*/':
         op = tokens[i][1] 
         i+=1
-        right_tree, i = factor(tokens, i) #we then parse the next factor that follows the operator
+        right_tree, i = factor(tokens, i) 
         tree = (op, tree, right_tree) 
     return tree, i 
 
 def expression(tokens, i):
-    tree, i = term(tokens, i) #we start by parsing a term
-    while tokens[i][0]=='OP' and tokens[i][1] in '+-': #we then check for any addition or subtraction operators that follow the term
+    tree, i = term(tokens, i) 
+    while tokens[i][0]=='OP' and tokens[i][1] in '+-':
         op = tokens[i][1] 
         i+=1
-        right_tree, i = term(tokens, i) #we then parse the next term that follows the operator
+        right_tree, i = term(tokens, i) 
         tree = (op, tree, right_tree) 
     return tree, i 
 def evaluate(tree):
