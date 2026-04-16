@@ -92,13 +92,13 @@ def main():
 
     with open("encrypted_text.txt", "w", encoding="utf-8") as f:
 
-        f.write(encrypted)
+        f.write(encrypted) #save the encrypted output to a new file
 
     decrypted = decrypt_text(encrypted, shift1, shift2)
 
     with open("decrypted_text.txt", "w", encoding="utf-8") as f:
 
-        f.write(decrypted)
+        f.write(decrypted) #save the decrypted output to a new file
 
     if verify_files("raw_text.txt", "decrypted_text.txt"):
 
