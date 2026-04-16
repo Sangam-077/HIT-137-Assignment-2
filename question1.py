@@ -1,7 +1,11 @@
 import string
 
-lower = string.ascii_lowercase # Create a string of lowercase letters using the ascii_lowercase constant from the string module
-upper = string.ascii_uppercase # Create a string of uppercase letters using the ascii_uppercase constant from the string module
+lower = (
+    string.ascii_lowercase
+)  # Create a string of lowercase letters using the ascii_lowercase constant from the string module
+upper = (
+    string.ascii_uppercase
+)  # Create a string of uppercase letters using the ascii_uppercase constant from the string module
 
 
 def shift_letter(letter, shift):
@@ -14,8 +18,9 @@ def shift_letter(letter, shift):
 
         index = lower.index(letter)
 
-        return lower[(index + shift) % 26] # Shift the letter and wrap around the alphabet if needed
-
+        return lower[
+            (index + shift) % 26
+        ]  # Shift the letter and wrap around the alphabet if needed
 
     if letter.isupper():
 
@@ -23,9 +28,7 @@ def shift_letter(letter, shift):
 
         return upper[(index + shift) % 26]
 
-
     return letter
-
 
 
 def encrypt_text(text, shift1, shift2):
@@ -35,7 +38,9 @@ def encrypt_text(text, shift1, shift2):
 
     encrypted = ""
 
-    for i, letter in enumerate(text): # Iterate through each letter in the text along with its index
+    for i, letter in enumerate(
+        text
+    ):  # Iterate through each letter in the text along with its index
 
         if i % 2 == 0:
 
@@ -46,6 +51,7 @@ def encrypt_text(text, shift1, shift2):
             encrypted += shift_letter(letter, shift2)
 
     return encrypted
+
 
 def decrypt_text(text, shift1, shift2):
     """
@@ -73,7 +79,9 @@ def verify_files(file1, file2):
 
     with open(file1, encoding="utf-8") as f1, open(file2, encoding="utf-8") as f2:
 
-        return f1.read().strip() == f2.read().strip()
+        return (
+            f1.read().strip() == f2.read().strip()
+        )  # strip() removes extra whitespace before comparing
 
 
 def main():
@@ -92,13 +100,13 @@ def main():
 
     with open("encrypted_text.txt", "w", encoding="utf-8") as f:
 
-        f.write(encrypted) #save the encrypted output to a new file
+        f.write(encrypted)  # save the encrypted output to a new file
 
     decrypted = decrypt_text(encrypted, shift1, shift2)
 
     with open("decrypted_text.txt", "w", encoding="utf-8") as f:
 
-        f.write(decrypted) #save the decrypted output to a new file
+        f.write(decrypted)  # save the decrypted output to a new file
 
     if verify_files("raw_text.txt", "decrypted_text.txt"):
 
@@ -109,5 +117,5 @@ def main():
         print("ERROR: Decryption failed")
 
 
-if __name__ == "__main__": # Run the program only when this file is executed directly
+if __name__ == "__main__":  # Run the program only when this file is executed directly
     main()
