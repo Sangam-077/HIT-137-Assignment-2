@@ -1,7 +1,7 @@
 import string
 
-lower = string.ascii_lowercase
-upper = string.ascii_uppercase
+lower = string.ascii_lowercase # Create a string of lowercase letters using the ascii_lowercase constant from the string module
+upper = string.ascii_uppercase # Create a string of uppercase letters using the ascii_uppercase constant from the string module
 
 
 def shift_letter(letter, shift):
@@ -35,7 +35,7 @@ def encrypt_text(text, shift1, shift2):
 
     encrypted = ""
 
-    for i, letter in enumerate(text):
+    for i, letter in enumerate(text): # Iterate through each letter in the text along with its index
 
         if i % 2 == 0:
 

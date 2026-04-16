@@ -34,40 +34,39 @@ def factor(tokens, i):
     if token[0]=='NUM': #if the token is a number, we return its value and move to the next token
         return token[1], i+1
     elif token[0]=='LPAREN': #if the token is a left parenthesis, it skips the left parenthesis and calls the expression function to parse the expression inside the parentheses
-        tree, i = expression(tokens, i+1) #we call the expression function recursively to parse the expression inside the parentheses
-        i+=1 #after parsing the expression, we need to move past the right parenthesis
+        tree, i = expression(tokens, i+1) 
+        i+=1 
         return tree, i
     elif token[0]=='OP' and token[1]=='-': #if the token is a unary operator (like a negative sign), we need to parse the factor that follows it and return a tuple with the operator and the factor
-        tree, i = factor(tokens, i+1) #we call the factor function recursively to parse the next factor
-        return ('neg', tree), i #we return a tuple with the operator 'neg' and the parsed factor
+        tree, i = factor(tokens, i+1) 
+        return ('neg', tree), i 
     else:
-        return 'ERROR', i #if the token is not a number, left parenthesis, or unary operator, we return an error
+        return 'ERROR', i 
 
 def term(tokens, i):
     tree, i = factor(tokens, i) #we start by parsing a factor
-    while tokens[i][0]=='OP' and tokens[i][1] in '*/': #we then check for any multiplication or division operators that follow the factor
-        op = tokens[i][1] #if we find an operator, we store it and move to the next token
+    while tokens[i][0]=='OP' and tokens[i][1] in '*/':
+        op = tokens[i][1] 
         i+=1
         right_tree, i = factor(tokens, i) #we then parse the next factor that follows the operator
-        tree = (op, tree, right_tree) #we combine the current tree with the new factor using the operator and update the tree
-    return tree, i #we return the final tree and the current index
+        tree = (op, tree, right_tree) 
+    return tree, i 
 
 def expression(tokens, i):
     tree, i = term(tokens, i) #we start by parsing a term
     while tokens[i][0]=='OP' and tokens[i][1] in '+-': #we then check for any addition or subtraction operators that follow the term
-        op = tokens[i][1] #if we find an operator, we store it and move to the next token
+        op = tokens[i][1] 
         i+=1
         right_tree, i = term(tokens, i) #we then parse the next term that follows the operator
-        tree = (op, tree, right_tree) #we combine the current tree with the new term using the operator and update the tree
-    return tree, i #we return the final tree and the current index
-
+        tree = (op, tree, right_tree) 
+    return tree, i 
 def evaluate(tree):
-    if isinstance(tree, str): #if the tree is a string (which means it's a number), we convert it to a float and return it
-        if tree == 'ERROR': #if the tree is an error, we return the error
+    if isinstance(tree, str): 
+        if tree == 'ERROR': 
             return 'ERROR'
         return float(tree)
-    op = tree[0] #we get the operator from the tree
-    if op == 'neg': #if the operator is 'neg', we evaluate the operand and return its negation
+    op = tree[0] 
+    if op == 'neg': 
         return -evaluate(tree[1])
     #get operators and left and right subtrees
     OP=tree[0]
@@ -92,7 +91,7 @@ def format_tokens(tokens):
             result+='[END]'
         else:
             result+=f'[{token[0]}:{token[1]}] ' #we add the token type and value to the result with a space after
-    return result.strip() #we remove any trailing whitespace
+    return result.strip() 
 
 def format_tree(tree): #this function takes a parse tree and formats it as a string for easier visualization. It uses recursion to traverse the tree and format each node according to its type (number, operator, or negation).
     if isinstance(tree, str):
